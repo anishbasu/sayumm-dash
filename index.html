@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+      <title>sayUmm Dashboard</title>
+
+    <!-- Bootstrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+      	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js" type="text/javascript"></script>
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+  	<style type="text/css">
+  		.col-centered{
+  			float: none;
+  			margin: 0 auto;
+  		}
+  		canvas{
+  			width: 100%;
+  			height: auto;
+  		}
+  		.top-buffer{
+  			margin-top: 20px;
+  		}
+  		.yellow{
+  			background-color: #FFFF00;
+  		}
+  		.red{
+  			background-color: #FA98B9;
+  		}
+  		.green{
+  			background-color: #98FAD9;
+  		}
+        .hi{
+            padding: 2px;
+        }
+        .transcript{
+            overflow-y: scroll;
+            width: inherit;
+            overflow-x: hidden;
+            height: 200px;
+        }
+        .instruction{
+            font-family: sans-serif;
+            font-weight: 800;
+            color: darkgrey;
+            text-transform: uppercase;
+        }
+        .img-centered{
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+  	</style>
+  	<div class="container">
+        <div class="row">
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-3 col-md-offset-6">
+            </div>
+        </div>
+  		<div class="row">
+  			<div class="col-md-12 text-center">
+  				<h1>Dashboard</h1>
+  				<h5>Click section for detailed feedback</h5>
+  			</div>
+  		</div>
+  		<div class="row">
+  			<div class="col-md-6 col-md-offset-3">
+  				<canvas id="radarPlot" width="250px" height="250px"></canvas>
+  			</div>
+  		</div>
+  		<div class="row top-buffer">
+  			<div class="col-md-12">
+  				<ul class="nav nav-pills nav-justified">
+  					<li class="active">
+  						<a data-toggle="pill" href="#pitch">Pitch &amp; Tone</a>
+  					</li>
+  					<li>
+  						<a data-toggle="pill" href="#gaze">Gaze</a>
+  					</li>
+  					<li>
+  						<a data-toggle="pill" href="#speed">Speed &amp; Pauses</a>
+  					</li>
+  					<li>
+  						<a data-toggle="pill" href="#filler">Filler Words</a>
+  					</li>
+  				</ul>
+  			</div>
+  		</div>
+  		<div class="row top-buffer">
+  			<div class="col-md-12 tab-content">
+  				<div id="pitch" class="tab-pane fade in active">
+  					<h3>Pitch &amp; Tone</h3>
+                    <h6 class="instruction">Words which you emphasized are in bold</h6>
+                    <div class="well transcript">
+                        <p>
+                            Did you know that <strong>public speaking</strong> is the number one <strong>fear</strong> in the world? Some would rather die than come up here and talk in front of you!
+                        </p>
+                        <p>
+                            So you may ask uh why is this the <strong>case</strong>? Well, humans you know judge each other by the way they communicate. Umm, so when a speaker comes on stage, they feel that they are uh being judged by all the eyes in the room.
+                        </p>
+                    </div>
+  				</div>
+  				<div id="gaze" class="tab-pane fade">
+  					<h3>Gaze</h3>
+                    <h6 class="instruction">The following heatmap shows where you looked while giving the speech</h6>
+                    <img src="audience-heat.png" class="img-centered">
+  				</div>
+  				<div id="speed" class="tab-pane fade">
+  					<h3>Speed &amp; Pauses</h3>
+                    <h6 class="instruction">Places where you stopped are highlighted in green</h6>
+                    <div class="well transcript">
+                        <p>
+                            Did you know that public speaking is the number one fear in the world<span class="hi green">?</span> Some would rather die than come up here and talk in front of you!
+                        </p>
+                        <p>
+                            So you may ask uh why is this the case<span class="hi green">?</span> Well<span class="hi green">,</span> humans you know judge each other by the way they communicate. Umm<span class="hi green">,</span> so when a speaker comes on stage, they feel that they are uh being judged by all the eyes in the room<span class="hi green">.</span>
+                        </p>
+                    </div>
+  				</div>
+  				<div id="filler" class="tab-pane fade">
+  					<h3>Filler Words</h3>
+                    <h6 class="instruction">Please remove the words highlighted in red</h6>
+                    <div class=" well transcript">
+                        <p>
+                            Did you know that public speaking is the number one fear in the world? Some would rather die than come up here and talk in front of you!
+                        </p>
+                        <p>
+                            So you may ask <span class="hi red">uh</span> why is this the case? Well, humans <span class="hi red">you know</span> judge each other by the way they communicate. <span class="hi red">Umm, so</span> when a speaker comes on stage, they feel that they are <span class="hi red">uh</span> being judged by all the eyes in the room.
+                        </p>
+                    </div>
+  				</div>
+  			</div>
+  		</div>
+        <div class="row top-buffer row-eq-height">
+            <div class="col-md-4">
+                <div class="well">
+                    <h4>Emotion Summary</h4>
+                    <div id="emoSumm"></div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="well">
+                    <h4>Language Summary</h4>
+                    <div id="langSumm"></div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="well">
+                    <h4>Social Summary</h4>
+                    <div id="socSumm"></div>
+                </div>
+            </div>
+        </div>
+  	</div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	<script type="text/javascript">
+		var rad_ctx = $("#radarPlot").get(0).getContext("2d");
+		var radarPlot = new Chart(rad_ctx).Radar(
+			{
+				labels: ["pitch & tone", "gaze", "speed & pauses", "filler words"],
+				datasets: [
+				{
+					label: "Your Speech",
+					fillColor: "rgba(151,187,205,0.2)",
+					strokeColor: "rgba(151,187,205,1)",
+					pointColor: "rgba(151,187,205,1)",
+            		pointStrokeColor: "#fff",
+            		pointHighlightFill: "#fff",
+            		pointHighlightStroke: "rgba(151,187,205,1)",
+            		data: [30,60,75,50]
+				}
+				]
+			},{});
+        var horizBarChart = function(div,data){
+            
+                var x = data.x;
+                var y = data.y;
+                var svg = d3
+                    .select(div)
+                    .append("svg")
+                    .attr("width", Math.max.apply(null,x)*1.5+120)
+                    .attr("height", x.length * 22);
+                var base = svg
+                    .selectAll("rect")
+                    
+                
+                base
+                    .data(x)
+                    .enter()
+                    .append("rect")
+                    .attr("x", 0)
+                    .attr("y", function(d, i){ return i * 22})
+                    .attr("width", function(d){ return d%100*1.5})
+                    .attr("height", 20)
+                    .attr("fill",function(d,i){ return data.color[i]})
+                base
+                    .data(y)
+                    .enter()
+                    .append("text")
+                    .text(function(d){return d})
+                    .attr("x", function(d,i){ return x[i]%100*1.5+5})
+                    .attr("y", function(d, i) {return 22*(i+1)-7})
+                    .attr("font-family", "sans-serif")
+                    .attr("font-size", "10px")
+                    .attr("text-anchor", "right")
+                
+                base
+                    .data(x)
+                    .enter()
+                    .append("text")
+                    .text(function(d){return d})
+                    .attr("x", function(d,i){ return d%100*1.5-15})
+                    .attr("y", function(d, i) {return 22*(i+1)-7})
+                    .attr("font-family", "sans-serif")
+                    .attr("font-size", "10px")
+                    .attr("text-anchor", "right")
+                    .attr("fill", "white")
+        }
+        horizBarChart(emoSumm,
+                      {
+            x: [90,30,20,30,40],
+            y: ['Anger', 'Disgust', 'Fear', 'Joy', 'Sadness'],
+            color: ['#007acc','#007acc','#007acc', '#007acc', '#007acc']
+        });
+        horizBarChart(socSumm,
+                     {
+            x:[90,60,20,30,60],
+            y: ['Openness','Conscientiousness','Extraversion','Agreeableness', 'Emotional Range'],
+            color: ['#007acc','#007acc','#007acc', '#007acc', '#007acc', '#007acc']
+        });
+        horizBarChart(langSumm,
+                     {
+            x: [60,30,60],
+            y: ["Analytical", "Confident", "Tentative"],
+            color: ['#007acc','#007acc','#007acc']
+        })
+	</script>
+  </body>
+</html>
